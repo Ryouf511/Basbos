@@ -1,0 +1,3130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرفوض - منصة القبول الجامعي غير الرسمي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== المتغيرات العامة ==================== */
+        :root {
+            --primary: #1a7a3a;
+            --primary-dark: #145c2b;
+            --primary-light: #2ea44f;
+            --primary-bg: #f0f7f2;
+            --white: #ffffff;
+            --gray-50: #f8f9fa;
+            --gray-100: #f1f3f5;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --red: #dc3545;
+            --red-bg: #fff5f5;
+            --red-border: #feb2b2;
+            --gold: #d4a017;
+            --gold-light: #fef9e7;
+            --gold-border: #f0d77b;
+            --green-success: #28a745;
+            --green-bg: #f0fff4;
+            --green-border: #9ae6b4;
+            --yellow-warning: #ffc107;
+            --yellow-bg: #fffbea;
+            --yellow-border: #fde68a;
+            --blue-info: #17a2b8;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 50px rgba(0,0,0,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --font-main: 'Cairo', sans-serif;
+            --font-secondary: 'Tajawal', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+            fill: currentColor;
+        }
+
+        .icon-sm { width: 16px; height: 16px; }
+        .icon-lg { width: 32px; height: 32px; }
+        .icon-xl { width: 48px; height: 48px; }
+
+        /* ==================== شاشة التحميل ==================== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem 0;
+        }
+
+        .loading-text {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes trophyShine {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        /* ==================== الهيدر ==================== */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--gray-700);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        .nav-link:hover {
+            background: var(--primary-bg);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            color: var(--gray-700);
+            font-family: inherit;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* زر المستخدم بعد تسجيل الدخول */
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.4rem 1rem;
+            background: var(--primary-bg);
+            border: 1px solid var(--primary-light);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .user-btn:hover {
+            background: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .user-btn:hover .user-name,
+        .user-btn:hover .user-icon {
+            color: var(--white);
+        }
+
+        .user-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+        }
+
+        .login-btn {
+            padding: 0.5rem 1.25rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ==================== القائمة المتنقلة ==================== */
+        .mobile-menu {
+            display: none;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: right;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .mobile-link:hover {
+            background: var(--primary-bg);
+            color: var(--primary);
+        }
+
+        /* ==================== المحتوى الرئيسي ==================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--gray-600);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* ==================== قسم البطل ==================== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 5rem 3rem;
+            text-align: center;
+            border-radius: var(--radius-xl);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: patternMove 20s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ==================== الأزرار ==================== */
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-bg);
+        }
+
+        .btn-danger {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== البطاقات ==================== */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ==================== النماذج ==================== */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 122, 58, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* ==================== المودال ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: scaleIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            z-index: 1;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray-600);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        /* ==================== التوست ==================== */
+        .toast-container {
+            position: fixed;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            animation: slideInRight 0.3s ease;
+            pointer-events: auto;
+            font-weight: 500;
+        }
+
+        .toast.success {
+            background: var(--green-success);
+        }
+
+        .toast.error {
+            background: var(--red);
+        }
+
+        .toast.warning {
+            background: var(--yellow-warning);
+            color: var(--gray-900);
+        }
+
+        /* ==================== التخصصات ==================== */
+        .specialization-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--gray-200);
+            transition: var(--transition);
+            margin-bottom: 1rem;
+        }
+
+        .specialization-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .specialization-card.green {
+            border-color: var(--green-border);
+            background: var(--green-bg);
+        }
+
+        .specialization-card.yellow {
+            border-color: var(--yellow-border);
+            background: var(--yellow-bg);
+        }
+
+        .specialization-card.red {
+            border-color: var(--red-border);
+            background: var(--red-bg);
+        }
+
+        .specialization-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .specialization-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .specialization-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-green {
+            background: var(--green-bg);
+            color: var(--green-success);
+            border: 1px solid var(--green-border);
+        }
+
+        .badge-yellow {
+            background: var(--yellow-bg);
+            color: #b7791f;
+            border: 1px solid var(--yellow-border);
+        }
+
+        .badge-red {
+            background: var(--red-bg);
+            color: var(--red);
+            border: 1px solid var(--red-border);
+        }
+
+        /* ==================== الرغبات ==================== */
+        .preference-item {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+        }
+
+        .preference-item:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .preference-number {
+            width: 35px;
+            height: 35px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .preference-number.first {
+            background: var(--gold);
+            animation: trophyShine 2s ease-in-out infinite;
+        }
+
+        /* ==================== لوحة التحكم ==================== */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .sidebar {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--gray-700);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: right;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .sidebar-link:hover {
+            background: var(--primary-bg);
+            color: var(--primary);
+        }
+
+        .sidebar-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .dashboard-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--gray-200);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        /* ==================== الشهادة ==================== */
+        .certificate {
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid var(--gold);
+            border-radius: var(--radius-md);
+            pointer-events: none;
+        }
+
+        .certificate-stamp {
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            transform: rotate(-15deg);
+            font-size: 0.9rem;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        /* ==================== الجدول الزمني ==================== */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-300);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-right: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: 12px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background: var(--white);
+            border: 3px solid var(--gray-400);
+            border-radius: 50%;
+        }
+
+        .timeline-item.completed .timeline-dot {
+            background: var(--green-success);
+            border-color: var(--green-success);
+        }
+
+        /* ==================== الفوتر ==================== */
+        .footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 3rem 1.5rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-light);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-700);
+            color: var(--gray-400);
+        }
+
+        /* ==================== التصميم المتجاوب ==================== */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: flex;
+                overflow-x: auto;
+                gap: 0.5rem;
+            }
+            
+            .sidebar-link {
+                white-space: nowrap;
+                width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger-btn {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .certificate {
+                padding: 2rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .certificate {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شاشة التحميل -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-logo">مرفوض</div>
+        <div class="loading-spinner"></div>
+        <p class="loading-text">جاري تجهيز مستقبلك الأكاديمي...</p>
+    </div>
+
+    <!-- حاوية التوست -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- الهيدر -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="hamburger-btn" onclick="toggleMobileMenu()">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <a class="logo" onclick="showPage('home')">
+                    <div class="logo-icon">م</div>
+                    <div>
+                        <div class="logo-text">مرفوض</div>
+                        <div class="logo-subtitle">MAFROOD</div>
+                    </div>
+                </a>
+            </div>
+            
+            <nav class="nav-menu" id="navMenu">
+                <button class="nav-link active" data-page="home" onclick="showPage('home')">الرئيسية</button>
+                <button class="nav-link" data-page="apply" onclick="showPage('apply')">التقديم</button>
+                <button class="nav-link" data-page="preferences" onclick="showPage('preferences')">الرغبات</button>
+                <button class="nav-link" data-page="status" onclick="showPage('status')">حالة الطلب</button>
+                <button class="nav-link" data-page="support" onclick="showPage('support')">الدعم</button>
+            </nav>
+            
+            <div class="header-actions" id="headerActions">
+                <button class="lang-btn" onclick="toggleLanguage()">
+                    <span class="lang-text">English</span>
+                </button>
+                <button class="login-btn" id="loginBtn" onclick="goToDashboard()">تسجيل الدخول</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- القائمة المتنقلة -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button class="mobile-link active" data-page="home" onclick="showPage('home')">الرئيسية</button>
+        <button class="mobile-link" data-page="apply" onclick="showPage('apply')">التقديم</button>
+        <button class="mobile-link" data-page="preferences" onclick="showPage('preferences')">الرغبات</button>
+        <button class="mobile-link" data-page="status" onclick="showPage('status')">حالة الطلب</button>
+        <button class="mobile-link" data-page="support" onclick="showPage('support')">الدعم</button>
+        <button class="mobile-link" data-page="faq" onclick="showPage('faq')">الأسئلة الشائعة</button>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <!-- الصفحة الرئيسية -->
+        <div id="homePage" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge" id="heroBadge">منصة القبول الجامعي غير الرسمي</div>
+                    <h1 id="heroTitle">مستقبلك يبدأ من هنا... حتى لو ما انقبلت</h1>
+                    <p class="hero-subtitle" id="heroSubtitle">استكشف تخصصك، احسب موزونتك، رتب رغباتك وانتظر مصيرك الأكاديمي.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-secondary btn-lg" onclick="startJourney()" id="startBtn">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                            <span>ابدأ رحلة القبول</span>
+                        </button>
+                        <button class="btn btn-outline btn-lg" onclick="showHowItWorks()" id="howBtn" style="color: white; border-color: white;">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            <span>كيف تعمل المنصة؟</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; font-weight: 800;" id="featuresTitle">لماذا منصة مرفوض؟</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div style="text-align: center; margin-bottom: 1rem;">
+                        <svg class="icon-xl" style="color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="2" width="16" height="20" rx="2"/>
+                            <line x1="8" y1="6" x2="16" y2="6"/>
+                            <line x1="8" y1="12" x2="16" y2="12"/>
+                            <line x1="8" y1="18" x2="12" y2="18"/>
+                        </svg>
+                    </div>
+                    <h3 style="text-align: center; margin-bottom: 0.5rem;" id="feature1Title">حساب الموزونة</h3>
+                    <p style="text-align: center; color: var(--gray-600);" id="feature1Text">نحسب موزونتك بدقة... ثم نجبر خاطرك بنظام جبر الخاطر الأكاديمي</p>
+                </div>
+                <div class="card">
+                    <div style="text-align: center; margin-bottom: 1rem;">
+                        <svg class="icon-xl" style="color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="8" y1="6" x2="21" y2="6"/>
+                            <line x1="8" y1="12" x2="21" y2="12"/>
+                            <line x1="8" y1="18" x2="21" y2="18"/>
+                            <line x1="3" y1="6" x2="3.01" y2="6"/>
+                            <line x1="3" y1="12" x2="3.01" y2="12"/>
+                            <line x1="3" y1="18" x2="3.01" y2="18"/>
+                        </svg>
+                    </div>
+                    <h3 style="text-align: center; margin-bottom: 0.5rem;" id="feature2Title">ترتيب الرغبات</h3>
+                    <p style="text-align: center; color: var(--gray-600);" id="feature2Text">اختر من تخصصاتنا الفريدة ورتبها بذكاء... أو بدون ذكاء</p>
+                </div>
+                <div class="card">
+                    <div style="text-align: center; margin-bottom: 1rem;">
+                        <svg class="icon-xl" style="color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="7"/>
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                        </svg>
+                    </div>
+                    <h3 style="text-align: center; margin-bottom: 0.5rem;" id="feature3Title">شهادة القبول</h3>
+                    <p style="text-align: center; color: var(--gray-600);" id="feature3Text">شهادة تليق بمستقبلك... الخيالي تماماً</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحة التقديم -->
+        <div id="applyPage" class="page">
+            <h2 class="page-title" id="applyTitle">إنشاء الملف</h2>
+            <p class="page-subtitle" id="applySubtitle">أدخل بياناتك لبدء رحلة القبول الأكاديمي</p>
+            
+            <div class="card" style="max-width: 500px; margin: 0 auto;">
+                <form id="applyForm">
+                    <div class="form-group">
+                        <label class="form-label" id="nameLabel">الاسم الكامل</label>
+                        <input type="text" id="studentName" class="form-input" placeholder="أدخل اسمك" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" id="yearLabel">سنة التخرج</label>
+                        <select id="graduationYear" class="form-select" required>
+                            <option value="">اختر سنة التخرج</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" id="genderLabel">الجنس</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="ذكر" checked>
+                                <span id="maleLabel">ذكر</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="أنثى">
+                                <span id="femaleLabel">أنثى</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" id="regionLabel">المنطقة</label>
+                        <select id="region" class="form-select" required>
+                            <option value="">اختر المنطقة</option>
+                            <option value="الرياض">الرياض</option>
+                            <option value="مكة المكرمة">مكة المكرمة</option>
+                            <option value="المدينة المنورة">المدينة المنورة</option>
+                            <option value="الشرقية">الشرقية</option>
+                            <option value="عسير">عسير</option>
+                            <option value="تبوك">تبوك</option>
+                            <option value="حائل">حائل</option>
+                            <option value="جازان">جازان</option>
+                            <option value="نجران">نجران</option>
+                            <option value="الباحة">الباحة</option>
+                            <option value="الجوف">الجوف</option>
+                            <option value="الحدود الشمالية">الحدود الشمالية</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" id="schoolLabel">نوع الثانوية</label>
+                        <select id="highSchoolType" class="form-select" required>
+                            <option value="">اختر نوع الثانوية</option>
+                            <option value="عام">عام</option>
+                            <option value="علمي">علمي</option>
+                            <option value="أدبي">أدبي</option>
+                            <option value="تحفيظ قرآن">تحفيظ قرآن</option>
+                            <option value="دولي">دولي</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+                        <span>متابعة</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- صفحة لوحة التحكم -->
+        <div id="dashboardPage" class="page">
+            <h2 class="page-title" id="dashTitle">لوحة التحكم</h2>
+            <div class="dashboard">
+                <div class="sidebar">
+                    <button class="sidebar-link active" onclick="showDashboardSection('overview')" id="sideOverview">نظرة عامة</button>
+                    <button class="sidebar-link" onclick="showDashboardSection('scores')" id="sideScores">حساب الموزونة</button>
+                    <button class="sidebar-link" onclick="showDashboardSection('preferences')" id="sidePreferences">الرغبات</button>
+                    <button class="sidebar-link" onclick="showDashboardSection('status')" id="sideStatus">حالة الطلب</button>
+                </div>
+                <div class="dashboard-content" id="dashboardContent">
+                    <div class="card">
+                        <h3 style="margin-bottom: 1rem;" id="dashInfoTitle">بيانات المتقدم</h3>
+                        <div style="display: grid; gap: 0.75rem;">
+                            <p><strong id="dashNameLabel">الاسم:</strong> <span id="dashName">-</span></p>
+                            <p><strong id="dashNumberLabel">رقم الطلب:</strong> <span id="dashNumber">-</span></p>
+                            <p><strong id="dashStatusLabel">حالة الطلب:</strong> <span id="dashStatus" class="badge-green">قيد الإجراء</span></p>
+                            <div>
+                                <p><strong id="dashProgressLabel">نسبة اكتمال الطلب:</strong> <span id="dashProgressText">25%</span></p>
+                                <div class="progress-bar" style="margin-top: 0.5rem;">
+                                    <div class="progress-fill" id="dashProgressBar" style="width: 25%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-grid">
+                        <div class="card" style="border-right: 4px solid var(--green-success);">
+                            <h4 id="stage1Title">1. البيانات الشخصية</h4>
+                            <p style="color: var(--green-success);" id="stage1Status">مكتمل</p>
+                        </div>
+                        <div class="card" style="border-right: 4px solid var(--gold); cursor: pointer;" onclick="showScoreCalculator()">
+                            <h4 id="stage2Title">2. حساب الموزونة</h4>
+                            <p style="color: var(--gold);" id="stage2Status">المرحلة الحالية</p>
+                        </div>
+                        <div class="card" style="border-right: 4px solid var(--gray-400); cursor: pointer;" onclick="showPage('preferences')">
+                            <h4 id="stage3Title">3. اختيار الرغبات</h4>
+                            <p style="color: var(--gray-600);" id="stage3Status">قيد الانتظار</p>
+                        </div>
+                        <div class="card">
+                            <h4 id="stage4Title">4. مراجعة الطلب</h4>
+                            <p style="color: var(--gray-600);" id="stage4Status">قيد الانتظار</p>
+                        </div>
+                        <div class="card">
+                            <h4 id="stage5Title">5. الفرز</h4>
+                            <p style="color: var(--gray-600);" id="stage5Status">قيد الانتظار</p>
+                        </div>
+                        <div class="card">
+                            <h4 id="stage6Title">6. النتيجة</h4>
+                            <p style="color: var(--gray-600);" id="stage6Status">قيد الانتظار</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحة الرغبات -->
+        <div id="preferencesPage" class="page">
+            <h2 class="page-title" id="prefTitle">ترتيب الرغبات</h2>
+            <p class="page-subtitle" id="prefSubtitle">الرغبة الأولى مهمة جداً... لا تحط تخصص النوم ثم تزعل</p>
+            <div id="preferencesList"></div>
+            <div style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn btn-primary" onclick="showSpecializations()" id="addSpecBtn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    <span>إضافة تخصص</span>
+                </button>
+                <button class="btn btn-secondary" onclick="reviewApplication()" id="reviewBtn">
+                    <span>مراجعة الطلب</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- صفحة حالة الطلب -->
+        <div id="statusPage" class="page">
+            <h2 class="page-title" id="statusTitle">حالة طلبك</h2>
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <div class="timeline" id="statusTimeline"></div>
+            </div>
+        </div>
+
+        <!-- صفحة الدعم -->
+        <div id="supportPage" class="page">
+            <h2 class="page-title" id="supportTitle">هل تحتاج مساعدة؟</h2>
+            <p class="page-subtitle" id="supportSubtitle">نحن هنا لمساعدتك في رحلتك الأكاديمية</p>
+            <div class="card-grid">
+                <div class="card" style="text-align: center; cursor: pointer;" onclick="showFAQ()">
+                    <h3 style="margin-bottom: 0.5rem;" id="faqCardTitle">الأسئلة الشائعة</h3>
+                    <p style="color: var(--gray-600);" id="faqCardText">إجابات على أكثر الأسئلة شيوعاً</p>
+                </div>
+                <div class="card" style="text-align: center; cursor: pointer;" onclick="contactSupport()">
+                    <h3 style="margin-bottom: 0.5rem;" id="contactTitle">التواصل مع الدعم</h3>
+                    <p style="color: var(--gray-600);">qqqqwwwmmm22@gmail.com</p>
+                </div>
+                <div class="card" style="text-align: center; cursor: pointer;" onclick="showToast('تم إرسال طلبك للدعم الفني', 'success')">
+                    <h3 style="margin-bottom: 0.5rem;" id="issueTitle">مشكلة في الطلب</h3>
+                    <p style="color: var(--gray-600);" id="issueText">الإبلاغ عن مشكلة تقنية</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحة الأسئلة الشائعة -->
+        <div id="faqPage" class="page">
+            <h2 class="page-title" id="faqTitle">الأسئلة الشائعة</h2>
+            <div style="max-width: 700px; margin: 0 auto;">
+                <div class="card" style="margin-bottom: 1rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">ما هي منصة مرفوض؟</h3>
+                    <p>منصة ترفيهية ساخرة لمحاكاة تجربة القبول الجامعي السعودي.</p>
+                </div>
+                <div class="card" style="margin-bottom: 1rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">كيف تحسب الموزونة؟</h3>
+                    <p>نستخدم معادلة خاصة: الثانوية 30% + القدرات 30% + التحصيلي 40%، ثم نطبق نظام جبر الخاطر الأكاديمي.</p>
+                </div>
+                <div class="card" style="margin-bottom: 1rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">هل القبول حقيقي؟</h3>
+                    <p>لا. جميع القبولات والجامعات والتخصصات خيالية وترفيهية.</p>
+                </div>
+                <div class="card" style="margin-bottom: 1rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">هل شهادة مرفوض رسمية؟</h3>
+                    <p>لا. منصة مرفوض مشروع ترفيهي ساخر فقط.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>مرفوض</h3>
+                <p id="footerSlogan">مستقبلك... بس بطريقة ثانية.</p>
+                <p style="margin-top: 0.5rem;" id="footerSubtitle">منصة مرفوض للقبول الجامعي غير الرسمي</p>
+            </div>
+            <div class="footer-links">
+                <h4 style="margin-bottom: 1rem;" id="footerLinksTitle">روابط سريعة</h4>
+                <a onclick="showPage('home')" id="footerHome">الرئيسية</a>
+                <a onclick="showPage('apply')" id="footerApply">التقديم</a>
+                <a onclick="showPage('preferences')" id="footerPref">الرغبات</a>
+                <a onclick="showPage('support')" id="footerSupport">الدعم</a>
+                <a onclick="showPage('faq')" id="footerFAQ">الأسئلة الشائعة</a>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem;" id="footerContactTitle">تواصل مع الدعم</h4>
+                <p>qqqqwwwmmm22@gmail.com</p>
+                <button class="btn btn-primary btn-sm" style="margin-top: 1rem;" onclick="contactSupport()" id="footerContactBtn">تواصل مع الدعم</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p id="footerUnofficial">منصة ترفيهية غير رسمية</p>
+            <p style="margin: 0.5rem 0;">صنع بواسطة ريوف</p>
+            <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem;" id="footerDisclaimer">منصة مرفوض مشروع ترفيهي غير رسمي ولا يمثل أي جهة تعليمية أو حكومية</p>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== البيانات الثابتة ====================
+        
+        const SPECIALIZATIONS = [
+            { id: 1, name: 'بكالوريوس علوم النوم', nameEn: 'Bachelor of Sleep Science', university: 'جامعة مرفوض', requiredScore: 85, seats: 50, competition: 'مرتفعة' },
+            { id: 2, name: 'هندسة السرير', nameEn: 'Bed Engineering', university: 'جامعة مرفوض', requiredScore: 90, seats: 30, competition: 'عالية جداً' },
+            { id: 3, name: 'علوم البطانية', nameEn: 'Blanket Sciences', university: 'جامعة النوم الوطنية', requiredScore: 75, seats: 40, competition: 'متوسطة' },
+            { id: 4, name: 'إدارة الكسل', nameEn: 'Laziness Management', university: 'جامعة البيتوت', requiredScore: 70, seats: 60, competition: 'منخفضة' },
+            { id: 5, name: 'إدارة البيتوت', nameEn: 'Homebody Management', university: 'جامعة البيتوت', requiredScore: 65, seats: 45, competition: 'منخفضة' },
+            { id: 6, name: 'تخصص السهر', nameEn: 'Night Owl Studies', university: 'جامعة الكسل العربية', requiredScore: 88, seats: 25, competition: 'عالية' },
+            { id: 7, name: 'هندسة الوسائد', nameEn: 'Pillow Engineering', university: 'جامعة السرير للتقنية', requiredScore: 80, seats: 35, competition: 'متوسطة' },
+            { id: 8, name: 'تقنية إغلاق المنبه', nameEn: 'Alarm Dismissal Technology', university: 'جامعة آخر لحظة', requiredScore: 95, seats: 20, competition: 'عالية جداً' },
+            { id: 9, name: 'علوم تأجيل المهام', nameEn: 'Procrastination Sciences', university: 'جامعة تأجيل المهام', requiredScore: 72, seats: 55, competition: 'منخفضة' },
+            { id: 10, name: 'إدارة طلبات المطاعم', nameEn: 'Restaurant Order Management', university: 'جامعة الكسل العربية', requiredScore: 68, seats: 65, competition: 'منخفضة' },
+            { id: 11, name: 'علوم فتح الثلاجة', nameEn: 'Fridge Opening Sciences', university: 'جامعة البيتوت', requiredScore: 60, seats: 70, competition: 'منخفضة جداً' },
+            { id: 12, name: 'تخصص متابعة المسلسلات', nameEn: 'Series Binge-Watching', university: 'جامعة السهر العالمية', requiredScore: 78, seats: 48, competition: 'متوسطة' },
+            { id: 13, name: 'الأمن السيبراني للقروبات', nameEn: 'Group Chat Cybersecurity', university: 'جامعة مرفوض', requiredScore: 92, seats: 22, competition: 'عالية جداً' },
+            { id: 14, name: 'هندسة الشحن', nameEn: 'Charging Engineering', university: 'جامعة السرير للتقنية', requiredScore: 82, seats: 40, competition: 'متوسطة' },
+            { id: 15, name: 'إدارة الاختفاء من القروبات', nameEn: 'Group Chat Disappearance', university: 'جامعة آخر لحظة', requiredScore: 74, seats: 50, competition: 'متوسطة' },
+            { id: 16, name: 'علوم السوالف بعد منتصف الليل', nameEn: 'Late Night Conversations', university: 'جامعة السهر العالمية', requiredScore: 86, seats: 28, competition: 'عالية' },
+            { id: 17, name: 'هندسة اختيار المطعم', nameEn: 'Restaurant Selection Engineering', university: 'جامعة الكسل العربية', requiredScore: 62, seats: 75, competition: 'منخفضة' },
+            { id: 18, name: 'علوم الريموت', nameEn: 'Remote Control Sciences', university: 'جامعة البيتوت', requiredScore: 58, seats: 80, competition: 'منخفضة جداً' },
+            { id: 19, name: 'إدارة الأعذار', nameEn: 'Excuses Management', university: 'جامعة آخر لحظة', requiredScore: 66, seats: 58, competition: 'منخفضة' },
+            { id: 20, name: 'بكالوريوس التسويف', nameEn: 'Bachelor of Procrastination', university: 'جامعة تأجيل المهام', requiredScore: 70, seats: 52, competition: 'منخفضة' },
+            { id: 21, name: 'علوم النوم بعد العصر', nameEn: 'Afternoon Nap Sciences', university: 'جامعة النوم الوطنية', requiredScore: 76, seats: 42, competition: 'متوسطة' },
+            { id: 22, name: 'إدارة الطلعات الملغاة', nameEn: 'Cancelled Plans Management', university: 'جامعة الكسل العربية', requiredScore: 64, seats: 62, competition: 'منخفضة' },
+            { id: 23, name: 'تقنية تجاهل المنبه', nameEn: 'Alarm Ignoring Technology', university: 'جامعة السرير للتقنية', requiredScore: 84, seats: 32, competition: 'متوسطة' },
+            { id: 24, name: 'هندسة البحث عن الجوال', nameEn: 'Phone Searching Engineering', university: 'جامعة آخر لحظة', requiredScore: 68, seats: 55, competition: 'منخفضة' },
+            { id: 25, name: 'علوم "بنام بدري اليوم"', nameEn: 'Early Sleep Sciences', university: 'جامعة النوم الوطنية', requiredScore: 73, seats: 46, competition: 'متوسطة' },
+            { id: 26, name: 'إدارة "بعد خمس دقائق"', nameEn: 'Five More Minutes Management', university: 'جامعة تأجيل المهام', requiredScore: 67, seats: 57, competition: 'منخفضة' },
+            { id: 27, name: 'علوم الاسترخاء', nameEn: 'Relaxation Sciences', university: 'جامعة النوم الوطنية', requiredScore: 55, seats: 85, competition: 'منخفضة جداً' },
+            { id: 28, name: 'هندسة البطانية', nameEn: 'Blanket Engineering', university: 'جامعة السرير للتقنية', requiredScore: 78, seats: 38, competition: 'متوسطة' },
+            { id: 29, name: 'علوم السرير المتقدمة', nameEn: 'Advanced Bed Sciences', university: 'جامعة مرفوض', requiredScore: 87, seats: 26, competition: 'عالية' },
+            { id: 30, name: 'دبلوم النوم الاحترافي', nameEn: 'Professional Sleep Diploma', university: 'جامعة النوم الوطنية', requiredScore: 60, seats: 90, competition: 'منخفضة' },
+        ];
+
+        const JABR_MESSAGES = [
+            'لا تسألنا كيف حسبناها. المهم أنك الآن تستاهل فرصة ثانية.',
+            'بالتعاون مع لجنة جبر الخاطر العالمية، تم رفع موزونتك.',
+            'موزونتك كانت تحتاج عناية خاصة، وقد قمنا بواجبنا.',
+            'الرقم الجديد ليس خطأ، إنه معجزة.',
+            'مبروك، لقد تم جبر خاطرك بنجاح.',
+            'لا داعي للتصفيق، جبر الخواطر واجبنا.'
+        ];
+
+        const HIGH_SCORE_MESSAGES = [
+            'يا الدافور، وش جابك منصة مرفوض؟',
+            'اطلع منها، شوف لك أكسفورد ولا هارفارد.',
+            'موزونتك أعلى من سقف توقعاتنا.',
+            'أنت في المكان الخطأ، هذه منصة للمرفوضين.'
+        ];
+
+        const STATUS = {
+            DRAFT: 'DRAFT',
+            SUBMITTED: 'SUBMITTED',
+            UNDER_REVIEW: 'UNDER_REVIEW',
+            RESULT_READY: 'RESULT_READY',
+            ACCEPTED: 'ACCEPTED',
+            UPGRADE_AVAILABLE: 'UPGRADE_AVAILABLE',
+            UPGRADED: 'UPGRADED',
+            CANCELLED: 'CANCELLED'
+        };
+
+        // ==================== الترجمات ====================
+        const translations = {
+            ar: {
+                logoText: 'مرفوض',
+                logoSubtitle: 'MAFROOD',
+                heroBadge: 'منصة القبول الجامعي غير الرسمي',
+                heroTitle: 'مستقبلك يبدأ من هنا... حتى لو ما انقبلت',
+                heroSubtitle: 'استكشف تخصصك، احسب موزونتك، رتب رغباتك وانتظر مصيرك الأكاديمي.',
+                startBtn: 'ابدأ رحلة القبول',
+                howBtn: 'كيف تعمل المنصة؟',
+                featuresTitle: 'لماذا منصة مرفوض؟',
+                feature1Title: 'حساب الموزونة',
+                feature1Text: 'نحسب موزونتك بدقة... ثم نجبر خاطرك بنظام جبر الخاطر الأكاديمي',
+                feature2Title: 'ترتيب الرغبات',
+                feature2Text: 'اختر من تخصصاتنا الفريدة ورتبها بذكاء... أو بدون ذكاء',
+                feature3Title: 'شهادة القبول',
+                feature3Text: 'شهادة تليق بمستقبلك... الخيالي تماماً',
+                applyTitle: 'إنشاء الملف',
+                applySubtitle: 'أدخل بياناتك لبدء رحلة القبول الأكاديمي',
+                nameLabel: 'الاسم الكامل',
+                yearLabel: 'سنة التخرج',
+                genderLabel: 'الجنس',
+                maleLabel: 'ذكر',
+                femaleLabel: 'أنثى',
+                regionLabel: 'المنطقة',
+                schoolLabel: 'نوع الثانوية',
+                submitBtn: 'متابعة',
+                dashTitle: 'لوحة التحكم',
+                sideOverview: 'نظرة عامة',
+                sideScores: 'حساب الموزونة',
+                sidePreferences: 'الرغبات',
+                sideStatus: 'حالة الطلب',
+                dashInfoTitle: 'بيانات المتقدم',
+                dashNameLabel: 'الاسم:',
+                dashNumberLabel: 'رقم الطلب:',
+                dashStatusLabel: 'حالة الطلب:',
+                dashProgressLabel: 'نسبة اكتمال الطلب:',
+                stage1Title: '1. البيانات الشخصية',
+                stage1Status: 'مكتمل',
+                stage2Title: '2. حساب الموزونة',
+                stage2Status: 'المرحلة الحالية',
+                stage3Title: '3. اختيار الرغبات',
+                stage3Status: 'قيد الانتظار',
+                stage4Title: '4. مراجعة الطلب',
+                stage4Status: 'قيد الانتظار',
+                stage5Title: '5. الفرز',
+                stage5Status: 'قيد الانتظار',
+                stage6Title: '6. النتيجة',
+                stage6Status: 'قيد الانتظار',
+                prefTitle: 'ترتيب الرغبات',
+                prefSubtitle: 'الرغبة الأولى مهمة جداً... لا تحط تخصص النوم ثم تزعل',
+                addSpecBtn: 'إضافة تخصص',
+                reviewBtn: 'مراجعة الطلب',
+                statusTitle: 'حالة طلبك',
+                supportTitle: 'هل تحتاج مساعدة؟',
+                supportSubtitle: 'نحن هنا لمساعدتك في رحلتك الأكاديمية',
+                faqCardTitle: 'الأسئلة الشائعة',
+                faqCardText: 'إجابات على أكثر الأسئلة شيوعاً',
+                contactTitle: 'التواصل مع الدعم',
+                issueTitle: 'مشكلة في الطلب',
+                issueText: 'الإبلاغ عن مشكلة تقنية',
+                faqTitle: 'الأسئلة الشائعة',
+                footerSlogan: 'مستقبلك... بس بطريقة ثانية.',
+                footerSubtitle: 'منصة مرفوض للقبول الجامعي غير الرسمي',
+                footerLinksTitle: 'روابط سريعة',
+                footerHome: 'الرئيسية',
+                footerApply: 'التقديم',
+                footerPref: 'الرغبات',
+                footerSupport: 'الدعم',
+                footerFAQ: 'الأسئلة الشائعة',
+                footerContactTitle: 'تواصل مع الدعم',
+                footerContactBtn: 'تواصل مع الدعم',
+                footerUnofficial: 'منصة ترفيهية غير رسمية',
+                footerDisclaimer: 'منصة مرفوض مشروع ترفيهي غير رسمي ولا يمثل أي جهة تعليمية أو حكومية',
+                loginBtn: 'تسجيل الدخول',
+                loadingText: 'جاري تجهيز مستقبلك الأكاديمي...',
+                disclaimerTitle: 'تنبيه',
+                disclaimerText1: 'هذه منصة ترفيهية ساخرة لمحاكاة تجربة القبول الجامعي.',
+                disclaimerText2: 'جميع الجامعات والتخصصات والنتائج داخل المنصة خيالية.',
+                understandBtn: 'فهمت',
+                home: 'الرئيسية',
+                apply: 'التقديم',
+                preferences: 'الرغبات',
+                status: 'حالة الطلب',
+                support: 'الدعم',
+                faq: 'الأسئلة الشائعة',
+                officialScore: 'الموزونة الرسمية',
+                jaberScore: 'موزونة مرفوض بعد جبر الخاطر',
+                viewSpecs: 'عرض التخصصات المتاحة'
+            },
+            en: {
+                logoText: 'MAFROOD',
+                logoSubtitle: 'مرفوض',
+                heroBadge: 'Unofficial University Admission Platform',
+                heroTitle: 'Your future starts here... even if you get rejected',
+                heroSubtitle: 'Explore your major, calculate your score, arrange your preferences and wait for your academic fate.',
+                startBtn: 'Start Admission Journey',
+                howBtn: 'How it works?',
+                featuresTitle: 'Why MAFROOD?',
+                feature1Title: 'Score Calculation',
+                feature1Text: 'We calculate your score accurately... then comfort you with our academic system',
+                feature2Title: 'Arrange Preferences',
+                feature2Text: 'Choose from our unique majors and arrange them wisely... or not',
+                feature3Title: 'Admission Certificate',
+                feature3Text: 'A certificate worthy of your... imaginary future',
+                applyTitle: 'Create Profile',
+                applySubtitle: 'Enter your information to start your academic journey',
+                nameLabel: 'Full Name',
+                yearLabel: 'Graduation Year',
+                genderLabel: 'Gender',
+                maleLabel: 'Male',
+                femaleLabel: 'Female',
+                regionLabel: 'Region',
+                schoolLabel: 'High School Type',
+                submitBtn: 'Continue',
+                dashTitle: 'Dashboard',
+                sideOverview: 'Overview',
+                sideScores: 'Calculate Score',
+                sidePreferences: 'Preferences',
+                sideStatus: 'Application Status',
+                dashInfoTitle: 'Applicant Information',
+                dashNameLabel: 'Name:',
+                dashNumberLabel: 'Application Number:',
+                dashStatusLabel: 'Application Status:',
+                dashProgressLabel: 'Completion Rate:',
+                stage1Title: '1. Personal Information',
+                stage1Status: 'Completed',
+                stage2Title: '2. Score Calculation',
+                stage2Status: 'Current Stage',
+                stage3Title: '3. Choose Preferences',
+                stage3Status: 'Pending',
+                stage4Title: '4. Review Application',
+                stage4Status: 'Pending',
+                stage5Title: '5. Sorting',
+                stage5Status: 'Pending',
+                stage6Title: '6. Result',
+                stage6Status: 'Pending',
+                prefTitle: 'Arrange Preferences',
+                prefSubtitle: 'First preference is very important... do not put Sleep major then complain',
+                addSpecBtn: 'Add Major',
+                reviewBtn: 'Review Application',
+                statusTitle: 'Your Application Status',
+                supportTitle: 'Need Help?',
+                supportSubtitle: 'We are here to help you in your academic journey',
+                faqCardTitle: 'FAQ',
+                faqCardText: 'Answers to common questions',
+                contactTitle: 'Contact Support',
+                issueTitle: 'Application Issue',
+                issueText: 'Report a technical issue',
+                faqTitle: 'Frequently Asked Questions',
+                footerSlogan: 'Your future... but in a different way.',
+                footerSubtitle: 'MAFROOD Unofficial University Admission Platform',
+                footerLinksTitle: 'Quick Links',
+                footerHome: 'Home',
+                footerApply: 'Apply',
+                footerPref: 'Preferences',
+                footerSupport: 'Support',
+                footerFAQ: 'FAQ',
+                footerContactTitle: 'Contact Support',
+                footerContactBtn: 'Contact Support',
+                footerUnofficial: 'Unofficial Entertainment Platform',
+                footerDisclaimer: 'MAFROOD is an unofficial entertainment project and does not represent any educational or governmental entity',
+                loginBtn: 'Login',
+                loadingText: 'Preparing your academic future...',
+                disclaimerTitle: 'Notice',
+                disclaimerText1: 'This is a satirical entertainment platform simulating the university admission experience.',
+                disclaimerText2: 'All universities, majors, and results within the platform are fictional.',
+                understandBtn: 'I Understand',
+                home: 'Home',
+                apply: 'Apply',
+                preferences: 'Preferences',
+                status: 'Status',
+                support: 'Support',
+                faq: 'FAQ',
+                officialScore: 'Official Score',
+                jaberScore: 'MAFROOD Score after Comfort',
+                viewSpecs: 'View Available Majors'
+            }
+        };
+
+        // ==================== حالة التطبيق ====================
+        let state = {
+            currentPage: 'home',
+            language: 'ar',
+            userData: {},
+            scores: {},
+            weightedScore: null,
+            jaberScore: null,
+            preferences: [],
+            applicationStatus: STATUS.DRAFT,
+            admissionResult: null,
+            applicationNumber: null,
+            admissionNumber: null,
+            upgradeAttempted: false,
+            applicationSubmitted: false,
+            notifications: []
+        };
+
+        // ==================== تهيئة التطبيق ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadState();
+            
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 2000);
+            
+            document.getElementById('applyForm').addEventListener('submit', handleApplySubmit);
+            
+            updateUI();
+            
+            window.addEventListener('scroll', handleScroll);
+        });
+
+        function handleScroll() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        // ==================== حفظ وتحميل البيانات ====================
+        function loadState() {
+            const saved = localStorage.getItem('mafrood_state');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    Object.assign(state, parsed);
+                } catch (error) {
+                    console.error('Error loading state:', error);
+                }
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('mafrood_state', JSON.stringify(state));
+            } catch (error) {
+                console.error('Error saving state:', error);
+            }
+        }
+
+        // ==================== التنقل ====================
+        function showPage(pageName) {
+            state.currentPage = pageName;
+            
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            const pageElement = document.getElementById(pageName + 'Page');
+            if (pageElement) {
+                pageElement.classList.add('active');
+            }
+            
+            document.querySelectorAll('.nav-link, .mobile-link').forEach(link => {
+                link.classList.toggle('active', link.dataset.page === pageName);
+            });
+            
+            document.getElementById('mobileMenu').classList.remove('open');
+            
+            updatePageContent(pageName);
+            
+            window.scrollTo(0, 0);
+            
+            saveState();
+        }
+
+        function updatePageContent(pageName) {
+            switch(pageName) {
+                case 'dashboard':
+                    updateDashboard();
+                    break;
+                case 'preferences':
+                    renderPreferences();
+                    break;
+                case 'status':
+                    renderStatus();
+                    break;
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+
+        // ==================== تحديث الواجهة ====================
+        function updateUI() {
+            updateHeaderUserButton();
+            
+            if (state.language === 'en') {
+                applyLanguage('en');
+            } else {
+                applyLanguage('ar');
+            }
+        }
+
+        function updateHeaderUserButton() {
+            const headerActions = document.getElementById('headerActions');
+            const langBtn = headerActions.querySelector('.lang-btn');
+            
+            // إزالة زر تسجيل الدخول القديم أو زر المستخدم
+            const oldLoginBtn = document.getElementById('loginBtn');
+            const oldUserBtn = document.getElementById('userBtn');
+            if (oldLoginBtn) oldLoginBtn.remove();
+            if (oldUserBtn) oldUserBtn.remove();
+            
+            if (state.userData.name) {
+                // إنشاء زر المستخدم
+                const userBtn = document.createElement('button');
+                userBtn.className = 'user-btn';
+                userBtn.id = 'userBtn';
+                userBtn.onclick = showUserProfile;
+                
+                const genderIcon = state.userData.gender === 'ذكر' ? 
+                    '<svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M12 14v7M9 18h6"/></svg>' : 
+                    '<svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M12 12v9M9 18h6"/></svg>';
+                
+                userBtn.innerHTML = `
+                    <div class="user-icon">
+                        ${genderIcon}
+                    </div>
+                    <span class="user-name">${state.userData.name}</span>
+                `;
+                
+                headerActions.insertBefore(userBtn, langBtn.nextSibling);
+            } else {
+                // إنشاء زر تسجيل الدخول
+                const loginBtn = document.createElement('button');
+                loginBtn.className = 'login-btn';
+                loginBtn.id = 'loginBtn';
+                loginBtn.onclick = goToDashboard;
+                loginBtn.textContent = translations[state.language].loginBtn;
+                
+                headerActions.insertBefore(loginBtn, langBtn.nextSibling);
+            }
+        }
+
+        function showUserProfile() {
+            if (!state.userData.name) return;
+            
+            const lang = state.language;
+            const t = translations[lang];
+            
+            showModal(t.dashInfoTitle, `
+                <div style="display: grid; gap: 1rem;">
+                    <div class="card">
+                        <p><strong>${t.dashNameLabel}</strong> ${state.userData.name}</p>
+                        <p><strong>${t.dashNumberLabel}</strong> ${state.applicationNumber || '-'}</p>
+                        <p><strong>${t.yearLabel}:</strong> ${state.userData.graduationYear || '-'}</p>
+                        <p><strong>${t.genderLabel}:</strong> ${state.userData.gender || '-'}</p>
+                        <p><strong>${t.regionLabel}:</strong> ${state.userData.region || '-'}</p>
+                        <p><strong>${t.schoolLabel}:</strong> ${state.userData.highSchoolType || '-'}</p>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="closeModal(); showPage('dashboard')">${t.dashTitle}</button>
+                </div>
+            `);
+        }
+
+        // ==================== اللغة ====================
+        function toggleLanguage() {
+            if (state.language === 'ar') {
+                state.language = 'en';
+                applyLanguage('en');
+            } else {
+                state.language = 'ar';
+                applyLanguage('ar');
+            }
+            saveState();
+            updateHeaderUserButton();
+        }
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // تحديث الهيدر
+            document.querySelector('.logo-text').textContent = t.logoText;
+            document.querySelector('.logo-subtitle').textContent = t.logoSubtitle;
+            document.querySelector('.lang-text').textContent = lang === 'ar' ? 'English' : 'عربي';
+            
+            // تحديث روابط التنقل
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navTexts = ['home', 'apply', 'preferences', 'status', 'support'];
+            navLinks.forEach((link, index) => {
+                if (navTexts[index]) {
+                    link.textContent = t[navTexts[index]];
+                }
+            });
+            
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            const mobileTexts = ['home', 'apply', 'preferences', 'status', 'support', 'faq'];
+            mobileLinks.forEach((link, index) => {
+                if (mobileTexts[index]) {
+                    link.textContent = t[mobileTexts[index]];
+                }
+            });
+            
+            // تحديث الصفحة الرئيسية
+            document.getElementById('heroBadge').textContent = t.heroBadge;
+            document.getElementById('heroTitle').textContent = t.heroTitle;
+            document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
+            document.querySelector('#startBtn span').textContent = t.startBtn;
+            document.querySelector('#howBtn span').textContent = t.howBtn;
+            document.getElementById('featuresTitle').textContent = t.featuresTitle;
+            document.getElementById('feature1Title').textContent = t.feature1Title;
+            document.getElementById('feature1Text').textContent = t.feature1Text;
+            document.getElementById('feature2Title').textContent = t.feature2Title;
+            document.getElementById('feature2Text').textContent = t.feature2Text;
+            document.getElementById('feature3Title').textContent = t.feature3Title;
+            document.getElementById('feature3Text').textContent = t.feature3Text;
+            
+            // تحديث صفحة التقديم
+            document.getElementById('applyTitle').textContent = t.applyTitle;
+            document.getElementById('applySubtitle').textContent = t.applySubtitle;
+            document.getElementById('nameLabel').textContent = t.nameLabel;
+            document.getElementById('yearLabel').textContent = t.yearLabel;
+            document.getElementById('genderLabel').textContent = t.genderLabel;
+            document.getElementById('maleLabel').textContent = t.maleLabel;
+            document.getElementById('femaleLabel').textContent = t.femaleLabel;
+            document.getElementById('regionLabel').textContent = t.regionLabel;
+            document.getElementById('schoolLabel').textContent = t.schoolLabel;
+            document.querySelector('#submitBtn span').textContent = t.submitBtn;
+            
+            // تحديث لوحة التحكم
+            document.getElementById('dashTitle').textContent = t.dashTitle;
+            document.getElementById('sideOverview').textContent = t.sideOverview;
+            document.getElementById('sideScores').textContent = t.sideScores;
+            document.getElementById('sidePreferences').textContent = t.sidePreferences;
+            document.getElementById('sideStatus').textContent = t.sideStatus;
+            document.getElementById('dashInfoTitle').textContent = t.dashInfoTitle;
+            document.getElementById('dashNameLabel').textContent = t.dashNameLabel;
+            document.getElementById('dashNumberLabel').textContent = t.dashNumberLabel;
+            document.getElementById('dashStatusLabel').textContent = t.dashStatusLabel;
+            document.getElementById('dashProgressLabel').textContent = t.dashProgressLabel;
+            document.getElementById('stage1Title').textContent = t.stage1Title;
+            document.getElementById('stage1Status').textContent = t.stage1Status;
+            document.getElementById('stage2Title').textContent = t.stage2Title;
+            document.getElementById('stage2Status').textContent = t.stage2Status;
+            document.getElementById('stage3Title').textContent = t.stage3Title;
+            document.getElementById('stage3Status').textContent = t.stage3Status;
+            document.getElementById('stage4Title').textContent = t.stage4Title;
+            document.getElementById('stage4Status').textContent = t.stage4Status;
+            document.getElementById('stage5Title').textContent = t.stage5Title;
+            document.getElementById('stage5Status').textContent = t.stage5Status;
+            document.getElementById('stage6Title').textContent = t.stage6Title;
+            document.getElementById('stage6Status').textContent = t.stage6Status;
+            
+            // تحديث صفحة الرغبات
+            document.getElementById('prefTitle').textContent = t.prefTitle;
+            document.getElementById('prefSubtitle').textContent = t.prefSubtitle;
+            document.querySelector('#addSpecBtn span').textContent = t.addSpecBtn;
+            document.querySelector('#reviewBtn span').textContent = t.reviewBtn;
+            
+            // تحديث صفحة الحالة
+            document.getElementById('statusTitle').textContent = t.statusTitle;
+            
+            // تحديث صفحة الدعم
+            document.getElementById('supportTitle').textContent = t.supportTitle;
+            document.getElementById('supportSubtitle').textContent = t.supportSubtitle;
+            document.getElementById('faqCardTitle').textContent = t.faqCardTitle;
+            document.getElementById('faqCardText').textContent = t.faqCardText;
+            document.getElementById('contactTitle').textContent = t.contactTitle;
+            document.getElementById('issueTitle').textContent = t.issueTitle;
+            document.getElementById('issueText').textContent = t.issueText;
+            
+            // تحديث صفحة الأسئلة الشائعة
+            document.getElementById('faqTitle').textContent = t.faqTitle;
+            
+            // تحديث الفوتر
+            document.getElementById('footerSlogan').textContent = t.footerSlogan;
+            document.getElementById('footerSubtitle').textContent = t.footerSubtitle;
+            document.getElementById('footerLinksTitle').textContent = t.footerLinksTitle;
+            document.getElementById('footerHome').textContent = t.footerHome;
+            document.getElementById('footerApply').textContent = t.footerApply;
+            document.getElementById('footerPref').textContent = t.footerPref;
+            document.getElementById('footerSupport').textContent = t.footerSupport;
+            document.getElementById('footerFAQ').textContent = t.footerFAQ;
+            document.getElementById('footerContactTitle').textContent = t.footerContactTitle;
+            document.getElementById('footerContactBtn').textContent = t.footerContactBtn;
+            document.getElementById('footerUnofficial').textContent = t.footerUnofficial;
+            document.getElementById('footerDisclaimer').textContent = t.footerDisclaimer;
+            
+            // تحديث شاشة التحميل
+            document.querySelector('.loading-text').textContent = t.loadingText;
+            
+            // إعادة عرض المحتوى الحالي
+            updatePageContent(state.currentPage);
+        }
+
+        // ==================== بدء الرحلة ====================
+        function startJourney() {
+            const t = translations[state.language];
+            showModal(t.disclaimerTitle, `
+                <p style="margin-bottom: 1rem;">${t.disclaimerText1}</p>
+                <p style="margin-bottom: 1rem;">${t.disclaimerText2}</p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary btn-lg" onclick="closeModal(); showPage('apply')">${t.understandBtn}</button>
+                </div>
+            `);
+        }
+
+        // ==================== كيف تعمل المنصة ====================
+        function showHowItWorks() {
+            const lang = state.language;
+            const steps = lang === 'ar' ? [
+                'أنشئ ملفك الشخصي',
+                'أدخل درجاتك في الثانوية والقدرات والتحصيلي',
+                'احسب موزونتك مع نظام جبر الخاطر الأكاديمي',
+                'اختر تخصصاتك المفضلة ورتبها',
+                'قدم طلبك وانتظر نتيجة الفرز',
+                'استلم شهادتك الخيالية'
+            ] : [
+                'Create your profile',
+                'Enter your high school, abilities, and achievement scores',
+                'Calculate your score with our academic comfort system',
+                'Choose and arrange your preferred majors',
+                'Submit your application and wait for results',
+                'Receive your imaginary certificate'
+            ];
+            
+            showModal(translations[lang].howBtn, `
+                <ol style="padding-right: 1.5rem; line-height: 2.5;">
+                    ${steps.map(step => `<li>${step}</li>`).join('')}
+                </ol>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="closeModal()">${translations[lang].understandBtn}</button>
+                </div>
+            `);
+        }
+
+        // ==================== معالجة نموذج التقديم ====================
+        function handleApplySubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('studentName').value.trim();
+            const graduationYear = document.getElementById('graduationYear').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const region = document.getElementById('region').value;
+            const highSchoolType = document.getElementById('highSchoolType').value;
+            
+            if (!name || !graduationYear || !region || !highSchoolType) {
+                showToast(state.language === 'ar' ? 'يرجى إكمال جميع الحقول المطلوبة' : 'Please complete all required fields', 'error');
+                return;
+            }
+            
+            state.userData = {
+                name: name,
+                graduationYear: graduationYear,
+                gender: gender,
+                region: region,
+                highSchoolType: highSchoolType
+            };
+            
+            const random = Math.floor(Math.random() * 900000) + 100000;
+            state.applicationNumber = `MF-2026-${random}`;
+            
+            addNotification(state.language === 'ar' ? 'تم إنشاء طلبك بنجاح' : 'Your application created successfully');
+            
+            saveState();
+            showToast(state.language === 'ar' ? 'تم إنشاء طلبك بنجاح' : 'Your application created successfully', 'success');
+            updateHeaderUserButton();
+            showPage('dashboard');
+            updateDashboard();
+        }
+
+        // ==================== تحديث لوحة التحكم ====================
+        function updateDashboard() {
+            if (!state.userData.name) return;
+            
+            document.getElementById('dashName').textContent = state.userData.name;
+            document.getElementById('dashNumber').textContent = state.applicationNumber || '-';
+            
+            let progress = 25;
+            let statusText = state.language === 'ar' ? 'قيد الإجراء' : 'In Progress';
+            let statusClass = 'badge-yellow';
+            
+            if (state.weightedScore !== null) {
+                progress += 15;
+            }
+            if (state.preferences.length > 0) {
+                progress += 20;
+            }
+            if (state.applicationSubmitted) {
+                progress += 20;
+                statusText = state.language === 'ar' ? 'تم التقديم' : 'Submitted';
+                statusClass = 'badge-green';
+            }
+            if (state.applicationStatus === STATUS.ACCEPTED) {
+                progress = 100;
+                statusText = state.language === 'ar' ? 'مقبول' : 'Accepted';
+                statusClass = 'badge-green';
+            }
+            if (state.applicationStatus === STATUS.CANCELLED) {
+                statusText = state.language === 'ar' ? 'ملغي' : 'Cancelled';
+                statusClass = 'badge-red';
+            }
+            
+            const statusElement = document.getElementById('dashStatus');
+            statusElement.textContent = statusText;
+            statusElement.className = statusClass;
+            
+            document.getElementById('dashProgressText').textContent = progress + '%';
+            document.getElementById('dashProgressBar').style.width = progress + '%';
+        }
+
+        function showDashboardSection(section) {
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            switch(section) {
+                case 'overview':
+                    updateDashboard();
+                    break;
+                case 'scores':
+                    showScoreCalculator();
+                    break;
+                case 'preferences':
+                    showPage('preferences');
+                    break;
+                case 'status':
+                    showPage('status');
+                    break;
+            }
+        }
+
+        // ==================== حاسبة الموزونة ====================
+        function showScoreCalculator() {
+            const lang = state.language;
+            const t = translations[lang];
+            
+            showModal(t.sideScores, `
+                <p style="margin-bottom: 1rem; color: var(--gray-600);">${lang === 'ar' ? 'أدخل درجاتك لحساب الموزونة' : 'Enter your scores to calculate'}</p>
+                <div class="form-group">
+                    <label class="form-label">${lang === 'ar' ? 'درجة الثانوية العامة (30%)' : 'High School Score (30%)'}</label>
+                    <input type="number" id="highSchoolScore" class="form-input" min="0" max="100" value="${state.scores.highSchool || ''}" placeholder="0-100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">${lang === 'ar' ? 'درجة القدرات (30%)' : 'Abilities Score (30%)'}</label>
+                    <input type="number" id="abilitiesScore" class="form-input" min="0" max="100" value="${state.scores.abilities || ''}" placeholder="0-100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">${lang === 'ar' ? 'درجة التحصيلي (40%)' : 'Achievement Score (40%)'}</label>
+                    <input type="number" id="achievementScore" class="form-input" min="0" max="100" value="${state.scores.achievement || ''}" placeholder="0-100">
+                </div>
+                <div id="scoreResult" style="display: none; margin: 1.5rem 0;"></div>
+                <button class="btn btn-primary btn-block btn-lg" onclick="calculateScore()">${lang === 'ar' ? 'حساب الموزونة' : 'Calculate Score'}</button>
+            `);
+        }
+
+        function calculateScore() {
+            const highSchool = parseFloat(document.getElementById('highSchoolScore').value);
+            const abilities = parseFloat(document.getElementById('abilitiesScore').value);
+            const achievement = parseFloat(document.getElementById('achievementScore').value);
+            
+            if (isNaN(highSchool) || isNaN(abilities) || isNaN(achievement) ||
+                highSchool < 0 || highSchool > 100 ||
+                abilities < 0 || abilities > 100 ||
+                achievement < 0 || achievement > 100) {
+                showToast(state.language === 'ar' ? 'يرجى إدخال درجات صحيحة من 0 إلى 100' : 'Please enter valid scores from 0 to 100', 'error');
+                return;
+            }
+            
+            state.scores = { highSchool, abilities, achievement };
+            
+            // حساب الموزونة الفعلية
+            const weightedScore = (highSchool * 0.30) + (abilities * 0.30) + (achievement * 0.40);
+            state.weightedScore = weightedScore;
+            
+            // تطبيق جبر الخاطر حسب المنطق الجديد
+            applyJabrAlKhater(weightedScore);
+            
+            // عرض النتيجة
+            displayScoreResult(weightedScore, state.jaberScore);
+            
+            saveState();
+            updateDashboard();
+        }
+
+        function applyJabrAlKhater(weightedScore) {
+            let jaberScore = weightedScore;
+            
+            // جبر الخاطر فقط إذا كانت الموزونة أقل من 80
+            if (weightedScore < 80) {
+                if (weightedScore < 50) {
+                    // من 90 إلى 92
+                    jaberScore = 90 + Math.random() * 2;
+                } else if (weightedScore < 60) {
+                    // من 92 إلى 94
+                    jaberScore = 92 + Math.random() * 2;
+                } else if (weightedScore < 70) {
+                    // من 94 إلى 96
+                    jaberScore = 94 + Math.random() * 2;
+                } else {
+                    // من 70 إلى أقل من 80: من 96 إلى 99
+                    jaberScore = 96 + Math.random() * 3;
+                }
+                // تقريب لرقمين عشريين
+                jaberScore = Math.round(jaberScore * 100) / 100;
+            }
+            
+            state.jaberScore = jaberScore;
+        }
+
+        function displayScoreResult(originalScore, jaberScore) {
+            const resultDiv = document.getElementById('scoreResult');
+            resultDiv.style.display = 'block';
+            
+            const lang = state.language;
+            const t = translations[lang];
+            
+            let message = '';
+            
+            if (originalScore >= 80) {
+                // لا يوجد جبر خاطر
+                message = HIGH_SCORE_MESSAGES[Math.floor(Math.random() * HIGH_SCORE_MESSAGES.length)];
+                
+                resultDiv.innerHTML = `
+                    <div class="card" style="border: 2px solid var(--primary);">
+                        <h4 style="margin-bottom: 0.5rem;">${t.officialScore}: ${originalScore.toFixed(2)}%</h4>
+                        <p style="color: var(--gray-600); margin-bottom: 1rem;">${message}</p>
+                        <button class="btn btn-primary btn-block" onclick="closeModal(); showSpecializations()">${t.viewSpecs}</button>
+                    </div>
+                `;
+            } else {
+                // يوجد جبر خاطر
+                message = JABR_MESSAGES[Math.floor(Math.random() * JABR_MESSAGES.length)];
+                
+                resultDiv.innerHTML = `
+                    <div class="card" style="border: 2px solid var(--primary);">
+                        <h4 style="margin-bottom: 0.5rem;">${t.officialScore}: ${originalScore.toFixed(2)}%</h4>
+                        <h4 style="color: var(--gold); margin-bottom: 0.5rem;">${t.jaberScore}: ${jaberScore.toFixed(2)}%</h4>
+                        <p style="color: var(--gray-600); margin-bottom: 1rem;">${message}</p>
+                        <p style="font-size: 0.85rem; color: var(--gray-500);">${lang === 'ar' ? 'نظام جبر الخاطر الأكاديمي™' : 'Academic Comfort System™'}</p>
+                        <button class="btn btn-primary btn-block" onclick="closeModal(); showSpecializations()">${t.viewSpecs}</button>
+                    </div>
+                `;
+            }
+            
+            addNotification(lang === 'ar' ? 'تم حساب الموزونة بنجاح' : 'Score calculated successfully');
+        }
+
+        // ==================== عرض التخصصات (باستخدام الموزونة الأصلية) ====================
+        function showSpecializations() {
+            // استخدام الموزونة الأصلية لتحديد الفرص
+            const originalScore = state.weightedScore || 0;
+            const displayScore = state.jaberScore || originalScore;
+            
+            const lang = state.language;
+            
+            let html = '<div style="max-height: 400px; overflow-y: auto; padding: 0.5rem;">';
+            
+            SPECIALIZATIONS.forEach(spec => {
+                // استخدام الموزونة الأصلية لتحديد الحالة
+                const difference = originalScore - spec.requiredScore;
+                let statusClass = 'green';
+                let badgeClass = 'badge-green';
+                let message = lang === 'ar' ? 'فرصة قبول مرتفعة' : 'High chance';
+                
+                if (difference >= 5) {
+                    statusClass = 'green';
+                    badgeClass = 'badge-green';
+                    message = lang === 'ar' ? 'مبروك، عندك أمل' : 'Good chance';
+                } else if (difference >= -10) {
+                    statusClass = 'yellow';
+                    badgeClass = 'badge-yellow';
+                    message = lang === 'ar' ? 'فرصة قبول متوسطة' : 'Medium chance';
+                } else {
+                    statusClass = 'red';
+                    badgeClass = 'badge-red';
+                    message = lang === 'ar' ? 'موزونتك تقول لا' : 'Your score says no';
+                }
+                
+                const isAdded = state.preferences.some(p => p.id === spec.id);
+                const specName = lang === 'ar' ? spec.name : (spec.nameEn || spec.name);
+                const universityName = lang === 'ar' ? spec.university : 'MAFROOD University';
+                
+                html += `
+                    <div class="specialization-card ${statusClass}">
+                        <div class="specialization-header">
+                            <div>
+                                <h3 class="specialization-name">${specName}</h3>
+                                <p style="color: var(--gray-600);">${universityName}</p>
+                            </div>
+                            <span class="specialization-badge ${badgeClass}">${message}</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem;">
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--gray-600);">${lang === 'ar' ? 'الدرجة المطلوبة' : 'Required Score'}</p>
+                                <p style="font-weight: 700;">${spec.requiredScore}%</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--gray-600);">${lang === 'ar' ? 'موزونتك الأصلية' : 'Your Score'}</p>
+                                <p style="font-weight: 700;">${originalScore.toFixed(2)}%</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--gray-600);">${lang === 'ar' ? 'المقاعد' : 'Seats'}</p>
+                                <p style="font-weight: 700;">${spec.seats}</p>
+                            </div>
+                        </div>
+                        <button class="btn ${isAdded ? 'btn-secondary' : 'btn-primary'} btn-block" 
+                                onclick="addPreference(${spec.id})" 
+                                ${isAdded ? 'disabled' : ''}>
+                            ${isAdded ? (lang === 'ar' ? 'تمت الإضافة' : 'Added') : (lang === 'ar' ? 'إضافة للرغبات' : 'Add to Preferences')}
+                        </button>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            showModal(lang === 'ar' ? 'التخصصات المتاحة' : 'Available Majors', html);
+        }
+
+        // ==================== إضافة رغبة ====================
+        function addPreference(specId) {
+            if (state.preferences.length >= 10) {
+                showToast(state.language === 'ar' ? 'وصلت للحد الأقصى (10 رغبات)' : 'Maximum reached (10 preferences)', 'warning');
+                return;
+            }
+            
+            const spec = SPECIALIZATIONS.find(s => s.id === specId);
+            if (!spec) return;
+            
+            if (state.preferences.find(p => p.id === specId)) {
+                showToast(state.language === 'ar' ? 'نحن نحترم الإصرار، لكن التخصص واحد فقط' : 'We respect persistence, but only one major', 'warning');
+                return;
+            }
+            
+            state.preferences.push(spec);
+            saveState();
+            
+            const specName = state.language === 'ar' ? spec.name : (spec.nameEn || spec.name);
+            
+            if (spec.name.includes('النوم') || (spec.nameEn && spec.nameEn.includes('Sleep'))) {
+                showToast(state.language === 'ar' ? 'اختيار منطقي جداً' : 'Very logical choice', 'success');
+            } else {
+                showToast(state.language === 'ar' ? `تمت إضافة ${specName}` : `${specName} added`, 'success');
+            }
+            
+            showSpecializations();
+            
+            addNotification(state.language === 'ar' ? `تمت إضافة ${specName} إلى الرغبات` : `${specName} added to preferences`);
+        }
+
+        // ==================== عرض الرغبات ====================
+        function renderPreferences() {
+            const list = document.getElementById('preferencesList');
+            if (!list) return;
+            
+            const lang = state.language;
+            
+            if (state.preferences.length === 0) {
+                list.innerHTML = `
+                    <div class="card" style="text-align: center; padding: 3rem;">
+                        <p style="margin-bottom: 1rem; color: var(--gray-600);">${lang === 'ar' ? 'لم تقم بإضافة أي رغبات بعد' : 'No preferences added yet'}</p>
+                        <button class="btn btn-primary" onclick="showSpecializations()">${lang === 'ar' ? 'تصفح التخصصات' : 'Browse Majors'}</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // استخدام الموزونة الأصلية
+            const originalScore = state.weightedScore || 0;
+            
+            let html = '';
+            state.preferences.forEach((spec, index) => {
+                const difference = originalScore - spec.requiredScore;
+                let statusColor = 'var(--green-success)';
+                let statusText = lang === 'ar' ? 'فرصة جيدة' : 'Good chance';
+                
+                if (difference >= 5) {
+                    statusColor = 'var(--green-success)';
+                    statusText = lang === 'ar' ? 'فرصة مرتفعة' : 'High chance';
+                } else if (difference >= -10) {
+                    statusColor = 'var(--yellow-warning)';
+                    statusText = lang === 'ar' ? 'فرصة متوسطة' : 'Medium chance';
+                } else {
+                    statusColor = 'var(--red)';
+                    statusText = lang === 'ar' ? 'فرصة منخفضة' : 'Low chance';
+                }
+                
+                const specName = lang === 'ar' ? spec.name : (spec.nameEn || spec.name);
+                
+                html += `
+                    <div class="preference-item">
+                        <div class="preference-number ${index === 0 ? 'first' : ''}">${index + 1}</div>
+                        <div style="flex: 1;">
+                            <strong>${specName}</strong>
+                            <p style="color: ${statusColor}; font-size: 0.9rem;">${statusText}</p>
+                            <p style="font-size: 0.85rem; color: var(--gray-600);">${lang === 'ar' ? 'مطلوب' : 'Required'}: ${spec.requiredScore}% | ${lang === 'ar' ? 'موزونتك' : 'Your score'}: ${originalScore.toFixed(2)}%</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            ${index > 0 ? `<button class="btn btn-outline btn-sm" onclick="movePreference(${index}, -1)">
+                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                            </button>` : ''}
+                            ${index < state.preferences.length - 1 ? `<button class="btn btn-outline btn-sm" onclick="movePreference(${index}, 1)">
+                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </button>` : ''}
+                            <button class="btn btn-danger btn-sm" onclick="removePreference(${index})">
+                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            if (state.preferences[0]) {
+                const firstName = lang === 'ar' ? state.preferences[0].name : (state.preferences[0].nameEn || state.preferences[0].name);
+                html += `
+                    <div class="card" style="text-align: center; border: 2px solid var(--gold); margin-top: 1.5rem;">
+                        <p style="font-weight: 700; color: var(--gold);">${lang === 'ar' ? 'الرغبة الأولى' : 'First Preference'}</p>
+                        <p style="font-size: 1.2rem; font-weight: 700;">${firstName}</p>
+                    </div>
+                `;
+            }
+            
+            list.innerHTML = html;
+        }
+
+        function movePreference(index, direction) {
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= state.preferences.length) return;
+            
+            const temp = state.preferences[index];
+            state.preferences[index] = state.preferences[newIndex];
+            state.preferences[newIndex] = temp;
+            
+            saveState();
+            renderPreferences();
+        }
+
+        function removePreference(index) {
+            const removed = state.preferences[index];
+            state.preferences.splice(index, 1);
+            saveState();
+            renderPreferences();
+            showToast(state.language === 'ar' ? 'تم حذف التخصص' : 'Major removed', 'success');
+        }
+
+        // ==================== مراجعة الطلب ====================
+        function reviewApplication() {
+            if (state.preferences.length === 0) {
+                showToast(state.language === 'ar' ? 'يرجى إضافة الرغبات أولاً' : 'Please add preferences first', 'warning');
+                return;
+            }
+            
+            const effectiveScore = state.jaberScore || state.weightedScore;
+            const lang = state.language;
+            
+            let html = `
+                <h3 style="margin-bottom: 1rem;">${lang === 'ar' ? 'بيانات المستخدم' : 'User Information'}</h3>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <p><strong>${lang === 'ar' ? 'الاسم' : 'Name'}:</strong> ${state.userData.name}</p>
+                    <p><strong>${lang === 'ar' ? 'رقم الطلب' : 'Application Number'}:</strong> ${state.applicationNumber}</p>
+                    <p><strong>${lang === 'ar' ? 'الموزونة' : 'Score'}:</strong> ${effectiveScore.toFixed(2)}%</p>
+                </div>
+                
+                <h3 style="margin-bottom: 1rem;">${lang === 'ar' ? `الرغبات المختارة (${state.preferences.length} من 10)` : `Selected Preferences (${state.preferences.length} of 10)`}</h3>
+                <ol style="padding-right: 1.5rem; line-height: 2;">
+            `;
+            
+            state.preferences.forEach(spec => {
+                const specName = lang === 'ar' ? spec.name : (spec.nameEn || spec.name);
+                html += `<li>${specName}</li>`;
+            });
+            
+            html += `
+                </ol>
+                
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreeCheckbox">
+                        ${lang === 'ar' ? 'أقر بأنني اخترت تخصص النوم بكامل قواي العقلية' : 'I declare that I chose Sleep major with full mental capacity'}
+                    </label>
+                </div>
+                
+                <button class="btn btn-primary btn-block btn-lg" onclick="submitApplication()">${lang === 'ar' ? 'تقديم الطلب' : 'Submit Application'}</button>
+            `;
+            
+            showModal(lang === 'ar' ? 'مراجعة طلب القبول' : 'Review Application', html);
+        }
+
+        // ==================== تقديم الطلب ====================
+        function submitApplication() {
+            const agreeCheckbox = document.getElementById('agreeCheckbox');
+            if (!agreeCheckbox || !agreeCheckbox.checked) {
+                showToast(state.language === 'ar' ? 'يرجى الموافقة على الإقرار أولاً' : 'Please agree to the declaration first', 'warning');
+                return;
+            }
+            
+            closeModal();
+            state.applicationSubmitted = true;
+            state.applicationStatus = STATUS.SUBMITTED;
+            saveState();
+            
+            const lang = state.language;
+            const steps = lang === 'ar' ? [
+                'جاري إرسال الطلب...',
+                'جاري التحقق من البيانات...',
+                'جاري احتساب الموزونة...',
+                'جاري مقارنة الرغبات...',
+                'جاري البحث عن مقعد مناسب...',
+                'جاري استدعاء لجنة القبول...',
+                'تمت معالجة طلبك.'
+            ] : [
+                'Sending application...',
+                'Verifying data...',
+                'Calculating score...',
+                'Comparing preferences...',
+                'Searching for available seat...',
+                'Calling admission committee...',
+                'Your application processed.'
+            ];
+            
+            showModal(lang === 'ar' ? 'جاري معالجة الطلب' : 'Processing Application', `
+                <div style="text-align: center; padding: 2rem;">
+                    <div class="loading-spinner" style="margin: 0 auto 2rem;"></div>
+                    <p id="processingStep" style="font-weight: 600;">${steps[0]}</p>
+                </div>
+            `);
+            
+            let stepIndex = 0;
+            const interval = setInterval(() => {
+                stepIndex++;
+                if (stepIndex < steps.length) {
+                    const stepElement = document.getElementById('processingStep');
+                    if (stepElement) {
+                        stepElement.textContent = steps[stepIndex];
+                    }
+                } else {
+                    clearInterval(interval);
+                    closeModal();
+                    processResult();
+                }
+            }, 1000);
+        }
+
+        // ==================== معالجة النتيجة ====================
+        function processResult() {
+            state.applicationStatus = STATUS.RESULT_READY;
+            
+            const random = Math.random();
+            
+            if (random < 0.6) {
+                acceptFirstPreference();
+            } else if (random < 0.9 && state.preferences.length > 1) {
+                const randomIndex = Math.floor(Math.random() * (state.preferences.length - 1)) + 1;
+                acceptLowerPreference(randomIndex);
+            } else {
+                rejectApplication();
+            }
+            
+            saveState();
+            showResult();
+            addNotification(state.language === 'ar' ? 'تمت معالجة طلبك' : 'Your application processed');
+        }
+
+        function acceptFirstPreference() {
+            state.applicationStatus = STATUS.ACCEPTED;
+            const random = Math.floor(Math.random() * 900000) + 100000;
+            state.admissionNumber = `MF-${random}`;
+            state.admissionResult = {
+                preferenceIndex: 0,
+                specialization: state.preferences[0]
+            };
+        }
+
+        function acceptLowerPreference(index) {
+            state.applicationStatus = STATUS.ACCEPTED;
+            const random = Math.floor(Math.random() * 900000) + 100000;
+            state.admissionNumber = `MF-${random}`;
+            state.admissionResult = {
+                preferenceIndex: index,
+                specialization: state.preferences[index]
+            };
+        }
+
+        function rejectApplication() {
+            state.applicationStatus = STATUS.CANCELLED;
+            state.admissionResult = null;
+        }
+
+        // ==================== عرض النتيجة ====================
+        function showResult() {
+            const lang = state.language;
+            
+            if (state.applicationStatus === STATUS.ACCEPTED && state.admissionResult) {
+                const result = state.admissionResult;
+                const isFirst = result.preferenceIndex === 0;
+                const effectiveScore = state.jaberScore || state.weightedScore;
+                const specName = lang === 'ar' ? result.specialization.name : (result.specialization.nameEn || result.specialization.name);
+                
+                let html = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;">●</div>
+                        <h2 style="color: var(--gold); font-size: 2rem; margin-bottom: 1rem;">${lang === 'ar' ? 'مبروك!' : 'Congratulations!'}</h2>
+                        <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">${isFirst ? (lang === 'ar' ? 'تم قبولك في رغبتك الأولى' : 'Accepted in your first preference') : (lang === 'ar' ? `تم قبولك في الرغبة رقم ${result.preferenceIndex + 1}` : `Accepted in preference #${result.preferenceIndex + 1}`)}</p>
+                        ${!isFirst ? `<p style="color: var(--gray-600); margin-bottom: 1rem;">${lang === 'ar' ? 'لم تحصل على رغبتك الأولى، لكننا وجدنا لك مكاناً مناسباً.' : 'Did not get your first preference, but we found a suitable place.'}</p>` : ''}
+                        
+                        <div class="card" style="margin: 1.5rem 0;">
+                            <p><strong>${lang === 'ar' ? 'الاسم' : 'Name'}:</strong> ${state.userData.name}</p>
+                            <p><strong>${lang === 'ar' ? 'التخصص' : 'Major'}:</strong> ${specName}</p>
+                            <p><strong>${lang === 'ar' ? 'الموزونة' : 'Score'}:</strong> ${effectiveScore.toFixed(2)}%</p>
+                            <p><strong>${lang === 'ar' ? 'رقم القبول' : 'Admission Number'}:</strong> ${state.admissionNumber}</p>
+                        </div>
+                    </div>
+                `;
+                
+                if (isFirst) {
+                    html += `
+                        <button class="btn btn-primary btn-block btn-lg" onclick="closeModal(); showCertificate()">${lang === 'ar' ? 'عرض شهادة القبول' : 'View Certificate'}</button>
+                    `;
+                } else {
+                    html += `
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            <button class="btn btn-gold" onclick="requestUpgrade()">${lang === 'ar' ? 'طلب ترقية القبول' : 'Request Upgrade'}</button>
+                            <button class="btn btn-primary" onclick="closeModal(); showCertificate()">${lang === 'ar' ? 'تأكيد القبول' : 'Confirm'}</button>
+                            <button class="btn btn-danger" onclick="cancelAcceptance()">${lang === 'ar' ? 'إلغاء القبول' : 'Cancel'}</button>
+                        </div>
+                    `;
+                }
+                
+                showModal(lang === 'ar' ? 'نتيجة القبول' : 'Admission Result', html);
+                showConfetti();
+            } else {
+                showModal(lang === 'ar' ? 'نتيجة القبول' : 'Admission Result', `
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--red); margin-bottom: 1rem;">×</div>
+                        <h2 style="color: var(--red); margin-bottom: 1rem;">${lang === 'ar' ? 'نأسف' : 'Sorry'}</h2>
+                        <p style="margin-bottom: 0.5rem;">${lang === 'ar' ? 'لم يتم قبولك في أي من رغباتك' : 'Not accepted in any preference'}</p>
+                        <p style="color: var(--gray-600); margin-bottom: 2rem;">${lang === 'ar' ? 'حتى منصة مرفوض رفضتك...' : 'Even MAFROOD rejected you...'}</p>
+                        <button class="btn btn-primary" onclick="closeModal(); resetApplication()">${lang === 'ar' ? 'جرب مرة ثانية' : 'Try Again'}</button>
+                    </div>
+                `);
+            }
+        }
+
+        // ==================== طلب الترقية ====================
+        function requestUpgrade() {
+            if (state.upgradeAttempted) {
+                showToast(state.language === 'ar' ? 'لقد استخدمت فرصة الترقية بالفعل' : 'Upgrade already used', 'warning');
+                return;
+            }
+            
+            closeModal();
+            
+            const lang = state.language;
+            
+            showModal(lang === 'ar' ? 'طلب ترقية القبول' : 'Request Upgrade', `
+                <p style="margin-bottom: 1rem;">${lang === 'ar' ? 'هل ترغب في الدخول في مفاضلة الترقية؟' : 'Do you want to enter upgrade competition?'}</p>
+                <div id="upgradeLoading" style="display: none; text-align: center; margin-top: 1rem;">
+                    <div class="loading-spinner" style="margin: 0 auto 1rem;"></div>
+                    <p>${lang === 'ar' ? 'جاري البحث عن مقعد أعلى...' : 'Searching for higher seat...'}</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+                    <button class="btn btn-gold" onclick="startUpgrade()">${lang === 'ar' ? 'ابدأ الترقية' : 'Start Upgrade'}</button>
+                    <button class="btn btn-secondary" onclick="closeModal()">${lang === 'ar' ? 'إلغاء' : 'Cancel'}</button>
+                </div>
+            `);
+        }
+
+        function startUpgrade() {
+            const loadingElement = document.getElementById('upgradeLoading');
+            if (loadingElement) {
+                loadingElement.style.display = 'block';
+            }
+            
+            state.upgradeAttempted = true;
+            
+            setTimeout(() => {
+                closeModal();
+                
+                const lang = state.language;
+                
+                if (Math.random() < 0.5 && state.admissionResult && state.admissionResult.preferenceIndex > 0) {
+                    const oldIndex = state.admissionResult.preferenceIndex;
+                    state.admissionResult = {
+                        preferenceIndex: 0,
+                        specialization: state.preferences[0]
+                    };
+                    state.applicationStatus = STATUS.UPGRADED;
+                    
+                    const firstName = lang === 'ar' ? state.preferences[0].name : (state.preferences[0].nameEn || state.preferences[0].name);
+                    
+                    showModal(lang === 'ar' ? 'تمت الترقية!' : 'Upgraded!', `
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;">●</div>
+                            <h2 style="color: var(--gold); margin-bottom: 1rem;">${lang === 'ar' ? 'مبروك!' : 'Congratulations!'}</h2>
+                            <p style="margin-bottom: 1rem;">${lang === 'ar' ? `تمت ترقيتك من الرغبة رقم ${oldIndex + 1} إلى الرغبة الأولى` : `Upgraded from preference #${oldIndex + 1} to first`}</p>
+                            <p style="margin-bottom: 1.5rem;"><strong>${lang === 'ar' ? 'التخصص الجديد' : 'New Major'}:</strong> ${firstName}</p>
+                            <button class="btn btn-primary" onclick="closeModal(); showCertificate()">${lang === 'ar' ? 'إصدار شهادة جديدة' : 'Issue New Certificate'}</button>
+                        </div>
+                    `);
+                    
+                    showConfetti();
+                    addNotification(lang === 'ar' ? 'تمت ترقية قبولك بنجاح' : 'Upgrade successful');
+                } else {
+                    showModal(lang === 'ar' ? 'عذراً' : 'Sorry', `
+                        <div style="text-align: center;">
+                            <h2 style="color: var(--red); margin-bottom: 1rem;">${lang === 'ar' ? 'لم نتمكن من ترقيتك' : 'Could not upgrade'}</h2>
+                            <p style="margin-bottom: 1rem;">${lang === 'ar' ? 'المقاعد في الرغبات الأولى ممتلئة' : 'First preference seats are full'}</p>
+                            <p style="color: var(--gray-600); margin-bottom: 1.5rem;">${lang === 'ar' ? 'لكن ما زال بإمكانك تأكيد قبولك الحالي' : 'You can still confirm your current admission'}</p>
+                            <button class="btn btn-primary" onclick="closeModal(); showCertificate()">${lang === 'ar' ? 'تأكيد القبول الحالي' : 'Confirm Current'}</button>
+                        </div>
+                    `);
+                }
+                
+                saveState();
+            }, 3000);
+        }
+
+        // ==================== إلغاء القبول ====================
+        function cancelAcceptance() {
+            closeModal();
+            
+            const lang = state.language;
+            
+            showModal(lang === 'ar' ? 'لحظة...' : 'Wait...', `
+                <p style="margin-bottom: 1rem;">${lang === 'ar' ? 'هل أنت متأكد من إلغاء قبولك؟' : 'Are you sure to cancel?'}</p>
+                <p style="color: var(--red); margin-bottom: 1.5rem;">${lang === 'ar' ? 'قد لا نستطيع إعادة المقعد لك، لأن فيه شخصاً كان ينتظر تخصص النوم من 1442.' : 'We may not return the seat, someone has been waiting for Sleep major since 1442.'}</p>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-danger" onclick="confirmCancellation()">${lang === 'ar' ? 'إلغاء القبول' : 'Cancel Admission'}</button>
+                    <button class="btn btn-secondary" onclick="closeModal()">${lang === 'ar' ? 'رجوع' : 'Back'}</button>
+                </div>
+            `);
+        }
+
+        function confirmCancellation() {
+            state.applicationStatus = STATUS.CANCELLED;
+            state.admissionResult = null;
+            saveState();
+            
+            closeModal();
+            
+            const lang = state.language;
+            
+            showModal(lang === 'ar' ? 'إلغاء القبول' : 'Admission Cancelled', `
+                <div style="text-align: center;">
+                    <h2 style="color: var(--red); margin-bottom: 1rem;">${lang === 'ar' ? 'يؤسفنا إلغاء قبولك' : 'Sorry to cancel'}</h2>
+                    <p>${lang === 'ar' ? 'نتمنى لك مستقبلاً أكاديمياً أكثر قبولاً.' : 'Wishing you a more accepting academic future.'}</p>
+                </div>
+            `);
+            
+            addNotification(lang === 'ar' ? 'تم إلغاء القبول' : 'Admission cancelled');
+        }
+
+        // ==================== الشهادة ====================
+        function showCertificate() {
+            closeModal();
+            
+            const effectiveScore = state.jaberScore || state.weightedScore;
+            const specialization = state.admissionResult ? 
+                (state.language === 'ar' ? state.admissionResult.specialization.name : (state.admissionResult.specialization.nameEn || state.admissionResult.specialization.name)) : 
+                (state.language === 'ar' ? 'غير محدد' : 'Not specified');
+            
+            const lang = state.language;
+            
+            showModal(lang === 'ar' ? 'شهادة القبول' : 'Admission Certificate', `
+                <div class="certificate">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h1 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 0.5rem;">${lang === 'ar' ? 'مرفوض' : 'MAFROOD'}</h1>
+                        <p style="color: var(--gray-600);">${lang === 'ar' ? 'MAFROOD' : 'مرفوض'}</p>
+                        <h2 style="color: var(--gold); margin-top: 1rem;">${lang === 'ar' ? 'شهادة قبول جامعي' : 'University Admission Certificate'}</h2>
+                    </div>
+                    
+                    <div style="text-align: center; line-height: 2.5; margin: 2rem 0;">
+                        <p>${lang === 'ar' ? 'تشهد منصة مرفوض بأن الطالب/الطالبة:' : 'MAFROOD platform certifies that:'}</p>
+                        <h3 style="font-size: 1.8rem; margin: 1rem 0;">${state.userData.name}</h3>
+                        <p>${lang === 'ar' ? 'قد تم قبوله/قبولها في:' : 'has been accepted in:'}</p>
+                        <h3 style="color: var(--primary); font-size: 1.3rem; margin: 1rem 0;">${specialization}</h3>
+                        <p>${lang === 'ar' ? 'بجامعة: <strong>جامعة مرفوض</strong>' : 'At: <strong>MAFROOD University</strong>'}</p>
+                        <p>${lang === 'ar' ? 'وذلك للعام الجامعي: 1448هـ' : 'Academic year: 1448 AH'}</p>
+                        <p>${lang === 'ar' ? 'الدرجة الموزونة' : 'Weighted Score'}: ${effectiveScore.toFixed(2)}%</p>
+                        <p>${lang === 'ar' ? 'رقم القبول' : 'Admission Number'}: ${state.admissionNumber || '-'}</p>
+                        <p>${lang === 'ar' ? 'تاريخ الإصدار: 19 أغسطس 2026' : 'Issue Date: August 19, 2026'}</p>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+                        <div style="text-align: center;">
+                            <p style="font-family: 'Brush Script MT', cursive; font-size: 1.5rem; color: var(--gray-600);">Rio xx_</p>
+                            <p style="font-size: 0.9rem;">${lang === 'ar' ? 'رئيسة الجامعة' : 'University President'}</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="font-family: 'Brush Script MT', cursive; font-size: 1.5rem; color: var(--gray-600);">Ryouf_XX</p>
+                            <p style="font-size: 0.9rem;">${lang === 'ar' ? 'رئيس منصة مرفوض' : 'MAFROOD Platform President'}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-stamp">${lang === 'ar' ? 'منصة مرفوض' : 'MAFROOD'}</div>
+                    
+                    <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+                        <p style="font-size: 0.75rem; color: var(--gray-600);">${lang === 'ar' ? 'وثيقة ترفيهية غير رسمية — لا تمثل قبولاً جامعياً حقيقياً' : 'Unofficial entertainment document — does not represent real university admission'}</p>
+                        <p style="margin-top: 0.5rem;">${lang === 'ar' ? 'صنع بواسطة ريوف' : 'Made by Ryouf'}</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="window.print()">${lang === 'ar' ? 'طباعة الشهادة' : 'Print'}</button>
+                    <button class="btn btn-secondary" onclick="shareResult()">${lang === 'ar' ? 'مشاركة النتيجة' : 'Share'}</button>
+                    <button class="btn btn-secondary" onclick="closeModal(); showPage('dashboard')">${lang === 'ar' ? 'العودة للوحة التحكم' : 'Back to Dashboard'}</button>
+                </div>
+            `);
+        }
+
+        // ==================== مشاركة النتيجة ====================
+        function shareResult() {
+            const effectiveScore = state.jaberScore || state.weightedScore;
+            const specialization = state.admissionResult ? 
+                (state.language === 'ar' ? state.admissionResult.specialization.name : (state.admissionResult.specialization.nameEn || state.admissionResult.specialization.name)) : 
+                '';
+            
+            const lang = state.language;
+            
+            const shareText = lang === 'ar' ? 
+                `مبروك لـ ${state.userData.name}\nتم قبوله في ${specialization}\nبموزونة ${effectiveScore.toFixed(2)}%\n\nمنصة مرفوض\nصنع بواسطة ريوف` :
+                `Congratulations to ${state.userData.name}\nAccepted in ${specialization}\nWith score ${effectiveScore.toFixed(2)}%\n\nMAFROOD Platform\nMade by Ryouf`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: lang === 'ar' ? 'نتيجة القبول - مرفوض' : 'Admission Result - MAFROOD',
+                    text: shareText
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showToast(lang === 'ar' ? 'تم نسخ النتيجة إلى الحافظة' : 'Result copied to clipboard', 'success');
+                }).catch(() => {
+                    showToast(lang === 'ar' ? 'تعذر مشاركة النتيجة' : 'Could not share', 'error');
+                });
+            }
+        }
+
+        // ==================== عرض حالة الطلب ====================
+        function renderStatus() {
+            const timeline = document.getElementById('statusTimeline');
+            if (!timeline) return;
+            
+            const lang = state.language;
+            
+            const steps = [
+                { text: lang === 'ar' ? 'تم إنشاء الحساب' : 'Account created', completed: true },
+                { text: lang === 'ar' ? 'تم إدخال البيانات' : 'Data entered', completed: !!state.userData.name },
+                { text: lang === 'ar' ? 'تم حساب الموزونة' : 'Score calculated', completed: state.weightedScore !== null },
+                { text: lang === 'ar' ? 'تم ترتيب الرغبات' : 'Preferences arranged', completed: state.preferences.length > 0 },
+                { text: lang === 'ar' ? 'تم تقديم الطلب' : 'Application submitted', completed: state.applicationSubmitted },
+                { text: lang === 'ar' ? 'تمت المفاضلة' : 'Comparison done', completed: state.applicationStatus === STATUS.RESULT_READY || state.applicationStatus === STATUS.ACCEPTED || state.applicationStatus === STATUS.CANCELLED },
+                { text: lang === 'ar' ? 'ظهرت النتيجة' : 'Result shown', completed: state.applicationStatus === STATUS.ACCEPTED || state.applicationStatus === STATUS.CANCELLED }
+            ];
+            
+            let html = '<div class="timeline">';
+            
+            steps.forEach(step => {
+                html += `
+                    <div class="timeline-item ${step.completed ? 'completed' : ''}">
+                        <div class="timeline-dot"></div>
+                        <h4>${step.text}</h4>
+                        ${step.completed ? `<p style="color: var(--green-success); font-size: 0.9rem;">${lang === 'ar' ? 'مكتمل' : 'Completed'}</p>` : ''}
+                    </div>
+                `;
+            });
+            
+            if (state.applicationStatus === STATUS.ACCEPTED && state.admissionResult) {
+                const specName = lang === 'ar' ? state.admissionResult.specialization.name : (state.admissionResult.specialization.nameEn || state.admissionResult.specialization.name);
+                html += `
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <h4 style="color: var(--gold);">${lang === 'ar' ? `تم قبولك في ${specName}` : `Accepted in ${specName}`}</h4>
+                    </div>
+                `;
+            } else if (state.applicationStatus === STATUS.CANCELLED) {
+                html += `
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 style="color: var(--red);">${lang === 'ar' ? 'تم إلغاء الطلب' : 'Application cancelled'}</h4>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            
+            timeline.innerHTML = html;
+        }
+
+        // ==================== إعادة تعيين الطلب ====================
+        function resetApplication() {
+            closeModal();
+            
+            const lang = state.language;
+            
+            showModal(lang === 'ar' ? 'إعادة التجربة' : 'Reset Application', `
+                <p style="margin-bottom: 1rem;">${lang === 'ar' ? 'يمكنك إعادة التجربة، لكن لا نضمن أن لجنة القبول سترحمك في المحاولة الثانية.' : 'You can try again, but we cannot guarantee mercy in second attempt.'}</p>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="confirmReset()">${lang === 'ar' ? 'إعادة التجربة' : 'Reset'}</button>
+                    <button class="btn btn-secondary" onclick="closeModal()">${lang === 'ar' ? 'إلغاء' : 'Cancel'}</button>
+                </div>
+            `);
+        }
+
+        function confirmReset() {
+            state.weightedScore = null;
+            state.jaberScore = null;
+            state.preferences = [];
+            state.applicationStatus = STATUS.DRAFT;
+            state.admissionResult = null;
+            state.applicationSubmitted = false;
+            state.upgradeAttempted = false;
+            state.admissionNumber = null;
+            
+            saveState();
+            closeModal();
+            showPage('apply');
+            showToast(state.language === 'ar' ? 'تم إعادة تعيين الطلب' : 'Application reset', 'success');
+        }
+
+        // ==================== الأسئلة الشائعة ====================
+        function showFAQ() {
+            showPage('faq');
+        }
+
+        // ==================== التواصل مع الدعم ====================
+        function contactSupport() {
+            const subject = encodeURIComponent(state.language === 'ar' ? 'استفسار عن منصة مرفوض' : 'MAFROOD Inquiry');
+            const body = encodeURIComponent(state.language === 'ar' ? 'مرحباً، لدي استفسار حول منصة مرفوض...' : 'Hello, I have a question about MAFROOD...');
+            window.location.href = `mailto:qqqqwwwmmm22@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // ==================== الإشعارات ====================
+        function addNotification(message) {
+            state.notifications.unshift({
+                message: message,
+                timestamp: new Date().toISOString()
+            });
+            
+            if (state.notifications.length > 10) {
+                state.notifications = state.notifications.slice(0, 10);
+            }
+            
+            saveState();
+        }
+
+        // ==================== الذهاب للوحة التحكم ====================
+        function goToDashboard() {
+            if (state.userData.name) {
+                showPage('dashboard');
+            } else {
+                showPage('apply');
+            }
+        }
+
+        // ==================== المودال ====================
+        function showModal(title, contentHTML) {
+            const modalHTML = `
+                <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">${title}</h3>
+                            <button class="modal-close" onclick="closeModal()">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">${contentHTML}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.modal-overlay');
+            if (modal) {
+                modal.remove();
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ==================== التوست ====================
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // ==================== تأثير الاحتفال ====================
+        function showConfetti() {
+            const colors = ['#1a7a3a', '#d4a017', '#dc3545', '#17a2b8', '#ffc107'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.top = '-20px';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.zIndex = '9999';
+                confetti.style.animation = `confettiFall ${Math.random() * 2 + 2}s linear forwards`;
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 4000);
+            }
+        }
+
+        // ==================== منع الأخطاء ====================
+        let submitLock = false;
+        document.addEventListener('submit', function(e) {
+            if (e.target.id === 'applyForm') {
+                if (submitLock) {
+                    e.preventDefault();
+                    showToast(state.language === 'ar' ? 'قدمنا الطلب يا حلو، اهدأ' : 'Application already submitted, relax', 'warning');
+                    return;
+                }
+                submitLock = true;
+                setTimeout(() => {
+                    submitLock = false;
+                }, 5000);
+            }
+        });
+
+        console.log('منصة مرفوض - تم التحميل بنجاح');
+        console.log('صنع بواسطة ريوف');
+        console.log('مشروع ترفيهي غير رسمي');
+    </script>
+</body>
+</html>
